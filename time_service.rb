@@ -11,18 +11,18 @@ class TimeService
   end
 
   def start_service
-    @thread = Thread.new {
+    @thread = Thread.new do
       while @active
         current_time = Time.new
         time = if current_time.min.zero?
-               ":clock#{current_time.strftime('%-I')}:"
-             elsif current_time.min == 30
-               ":clock#{current_time.strftime('%-I')}30:"
-             elsif current_time.hour == 13 && current_time.min == 37
-               'Look at the time! It\'s :one: :three: : :three: :seven: !'
-             else
-              nil
-             end
+                 ":clock#{current_time.strftime('%l')}:"
+               elsif current_time.min == 30
+                 ":clock#{current_time.strftime('%l')}30:"
+               elsif current_time.hour == 13 && current_time.min == 37
+                 'Look at the time! It\'s :one: :three: : :three: :seven: !'
+               else
+                 nil
+               end
 
         puts current_time if @debug
         @gitter_bot.send_message(time) unless time.nil?
@@ -30,6 +30,6 @@ class TimeService
       end
 
       @thread.kill
-    }
+    end
   end
 end
