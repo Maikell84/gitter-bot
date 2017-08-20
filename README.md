@@ -7,9 +7,10 @@
 - For the gif-displaying functionality you need a giphy access-token: You can obtain one here:  https://giphy.com
 - Put the Access-Tokens in environment-Variables by starting the script with parameters, or by editing your system environement-variables. E.g. in your ~/.bashrc file:
 
-    export GITTER_TOKEN='your gitter token'
-    export GITTER_ROOM_ID='your gitter room id'
-    export GIPHY_API_KEY='your giphy token'
+
+      export GITTER_TOKEN='your gitter token'
+      export GITTER_ROOM_ID='your gitter room id'
+      export GIPHY_API_KEY='your giphy token'
 
 
 ## Installation
