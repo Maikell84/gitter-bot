@@ -12,6 +12,7 @@ class GitterBot
 	end
 
 	def initialize
+    @debug = false
 		@token = ENV['GITTER_TOKEN']
 		room_id = ENV['GITTER_ROOM_ID']
 		stream_url = "https://stream.gitter.im/v1/rooms/#{room_id}/chatMessages"
@@ -31,7 +32,7 @@ class GitterBot
 	end
 
 	def handle_message
-	  p [:message, @message]
+	  p [:message, @message] if @debug
 	  if @message['text'].downcase.include? 'tell a joke'
 	  	tell_a_joke
 	  elsif @message['text'].start_with? 'gif'

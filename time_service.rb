@@ -90,7 +90,7 @@ class TimeService
             time = ':clock1130:'
           end
         end
-        puts Time.new
+        puts Time.new if @debug
         @gitter_bot.send_message(time) unless time.nil?
         sleep 60
       end
