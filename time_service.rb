@@ -5,8 +5,9 @@ class TimeService
   end
 
   def activate(active)
+    # Start service, if it is not active, yet
+    start_service if active && !@active
     @active = active
-    start_service if active
   end
 
   def start_service
