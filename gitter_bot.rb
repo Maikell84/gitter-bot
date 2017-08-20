@@ -4,6 +4,7 @@ require 'json'
 require 'net/http'
 require 'open-uri'
 require 'giphy'
+require_relative 'time_service'
 
 class GitterBot
 	Giphy::Configuration.configure do |config|
@@ -15,7 +16,7 @@ class GitterBot
 		room_id = ENV['GITTER_ROOM_ID']
 		stream_url = "https://stream.gitter.im/v1/rooms/#{room_id}/chatMessages"
 		@send_url = "https://api.gitter.im/v1/rooms/#{room_id}/chatMessages"
-
+    @time_service = TimeService.new(self)
 		http = EM::HttpRequest.new(stream_url, keepalive: true, connect_timeout: 0, inactivity_timeout: 0)
 
 		EventMachine.run do
@@ -31,11 +32,14 @@ class GitterBot
 
 	def handle_message
 	  p [:message, @message]
-	  if @message['text'].include? 'tell a joke'
+	  if @message['text'].downcase.include? 'tell a joke'
 	  	tell_a_joke
 	  elsif @message['text'].start_with? 'gif'
 	  	show_gif(@message['text'])
-	  else
+    elsif @message['text'].downcase.start_with? 'deactivate time service'
+      toggle_time_service(false)
+    elsif @message['text'].downcase.start_with? 'activate time service'
+	    toggle_time_service(true)
 	  end
 	end
 
@@ -78,6 +82,12 @@ class GitterBot
 		  puts res.value
 		end
 	end
+
+  def toggle_time_service(active)
+    @time_service.activate(active)
+    active_display = active == true ? 'on' : 'off'
+    send_message("Time Service is #{active_display}")
+  end
 end
 
 GitterBot.new

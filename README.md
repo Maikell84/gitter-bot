@@ -21,12 +21,14 @@
 
 Start the software with:
 
-    ruby gitter-bot.rb
+    ruby gitter_bot.rb
 
 Bot will listen to following commands, in the gitter-room that you have specified:
 
     tell a joke
     gif topic
+    activate time service # Displays a clock-emoji every 30 min
+    deactivate time service # Stops displaying a clock-emoji every 30 min
 
 
 ## Contributing
