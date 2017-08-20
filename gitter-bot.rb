@@ -1,0 +1,83 @@
+require 'eventmachine'
+require 'em-http'
+require 'json'
+require 'net/http'
+require 'open-uri'
+require 'giphy'
+
+class GitterBot
+	Giphy::Configuration.configure do |config|
+	  config.api_key = ENV['GIPHY_API_KEY']
+	end
+
+	def initialize
+		@token = ENV['GITTER_TOKEN']
+		room_id = ENV['GITTER_ROOM_ID']
+		stream_url = "https://stream.gitter.im/v1/rooms/#{room_id}/chatMessages"
+		@send_url = "https://api.gitter.im/v1/rooms/#{room_id}/chatMessages"
+
+		http = EM::HttpRequest.new(stream_url, keepalive: true, connect_timeout: 0, inactivity_timeout: 0)
+
+		EventMachine.run do
+		  req = http.get(head: {'Authorization' => "Bearer #{@token}", 'accept' => 'application/json'})
+		  req.stream do |chunk|
+		    unless chunk.strip.empty?
+		      @message = JSON.parse(chunk)
+					handle_message
+		    end
+		  end
+		end
+	end
+
+	def handle_message
+	  p [:message, @message]
+	  if @message['text'].include? 'tell a joke'
+	  	tell_a_joke
+	  elsif @message['text'].start_with? 'gif'
+	  	show_gif(@message['text'])
+	  else
+	  end
+	end
+
+	def tell_a_joke
+		response = open('https://icanhazdadjoke.com/', 'Accept' => 'application/json').read
+		joke = JSON.parse(response)['joke']
+		send_message(joke)
+	end
+
+	def show_gif(text)
+		text.slice!('gif')
+		begin
+			g = Giphy.random(text)
+			send_message('![](' + g.image_url.to_s + ')')
+		rescue
+			g = Giphy.random('404')
+			send_message('![](' + g.image_url.to_s + ')')
+		rescue
+			send_message('*no gif found*')
+		end
+	end
+
+	def send_message(text)
+		uri = URI(@send_url)
+		req = Net::HTTP::Post.new(uri)
+		req['Authorization'] = "Bearer #{@token}"
+		req['Accept'] = 'application/json'
+		req['Content-Type'] = 'application/json'
+		req.set_form_data('text' => text)
+
+		res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+			http.request(req)
+		end
+
+		case res
+		when Net::HTTPSuccess, Net::HTTPRedirection
+		  # Message successfully sent
+		else
+			puts 'An HTTP error occured while trying to send a message'
+		  puts res.value
+		end
+	end
+end
+
+GitterBot.new
