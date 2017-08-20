@@ -41,6 +41,8 @@ class GitterBot
       toggle_time_service(false)
     elsif @message['text'].downcase.start_with? 'activate time service'
 	    toggle_time_service(true)
+    elsif @message['text'].downcase.include? 'but why'
+       but_why
 	  end
 	end
 
@@ -62,6 +64,10 @@ class GitterBot
 			send_message('*no gif found*')
 		end
 	end
+
+  def but_why
+    send_message('![](https://media.giphy.com/media/1M9fmo1WAFVK0/giphy.gif)')
+  end
 
 	def send_message(text)
 		uri = URI(@send_url)
