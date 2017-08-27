@@ -36,8 +36,12 @@ class GitterBot
       req = http.get(head: {'Authorization' => "Bearer #{@token}", 'accept' => 'application/json'})
       req.stream do |chunk|
         unless chunk.strip.empty?
-          @message = JSON.parse(chunk)
-          handle_message(room)
+          begin
+            @message = JSON.parse(chunk)
+            handle_message(room)
+          rescue JSON::ParserError
+            puts "Rescue JSON parser error: JSON: #{chunk}"
+          end
         end
       end
     end
