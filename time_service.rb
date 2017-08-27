@@ -31,11 +31,10 @@ class TimeService
                  nil
                end
 
-        if time.present?
-          @time_rooms.each do |room|
-            @gitter_bot.send_message(room, time)
-          end
-        end
+        @time_rooms.each do |room|
+          @gitter_bot.send_message(room, time)
+        end unless time.nil?
+
         sleep 60
       end
 
