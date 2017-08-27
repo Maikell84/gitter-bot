@@ -22,9 +22,9 @@ class TimeService
       while @active
         current_time = Time.new
         time = if current_time.min.zero?
-                 ":clock#{current_time.strftime('%l')}:"
+                 ":clock#{current_time.strftime('%l').strip!}:"
                elsif current_time.min == 30
-                 ":clock#{current_time.strftime('%l')}30:"
+                 ":clock#{current_time.strftime('%l').strip!}30:"
                elsif current_time.hour == 13 && current_time.min == 37
                  'Look at the time! It\'s :one: :three: : :three: :seven: !'
                else
