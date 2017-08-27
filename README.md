@@ -12,6 +12,7 @@
       export GITTER_ROOM_ID='your gitter room id'
       export GIPHY_API_KEY='your giphy token'
 
+This bot can also listen to multiple rooms simultaneously. Just enter the room ids in the array `room_ids` in the initialize method.
 
 ## Installation
 

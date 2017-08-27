@@ -2,12 +2,19 @@ class TimeService
   def initialize(calling_class)
     @gitter_bot = calling_class
     @active = false
+    @time_rooms = []
   end
 
-  def activate(active)
+  def activate(target_room, active)
     # Start service, if it is not active, yet
     start_service if active && !@active
-    @active = active
+    if active
+      @time_rooms.push(target_room) unless @time_rooms.include? target_room
+      @active = active
+    else
+      @time_rooms.delete_if {|x| x == target_room }
+      @active = false if @time_rooms.nil?
+    end
   end
 
   def start_service
@@ -24,8 +31,11 @@ class TimeService
                  nil
                end
 
-        puts current_time if @debug
-        @gitter_bot.send_message(time) unless time.nil?
+        if time.present?
+          @time_rooms.each do |room|
+            @gitter_bot.send_message(room, time)
+          end
+        end
         sleep 60
       end
 
