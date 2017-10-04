@@ -52,7 +52,7 @@ class GitterBot
     p "Target room = #{target_room}" if @debug
 	  if @message['text'].downcase.include? 'tell a joke'
 	  	tell_a_joke(target_room)
-	  elsif @message['text'].start_with? 'gif'
+	  elsif @message['text'].downcase.start_with? 'gif'
 	  	show_gif(target_room, @message['text'])
     elsif @message['text'].downcase.start_with? 'deactivate time service'
       toggle_time_service(target_room, false)
