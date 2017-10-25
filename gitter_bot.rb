@@ -73,17 +73,17 @@ class GitterBot
 		text.slice!('gif')
 		begin
 			g = Giphy.random(text)
-			send_message(target_room, '![](' + g.image_url.to_s + ')')
+			send_message(target_room, g.image_url.to_s)
 		rescue
 			g = Giphy.random('404')
-			send_message(target_room, '![](' + g.image_url.to_s + ')')
+			send_message(target_room, g.image_url.to_s)
 		rescue
 			send_message(target_room, '*no gif found*')
 		end
 	end
 
   def but_why(target_room)
-    send_message(target_room, '![](https://media.giphy.com/media/1M9fmo1WAFVK0/giphy.gif)')
+    send_message(target_room, 'https://media.giphy.com/media/1M9fmo1WAFVK0/giphy.gif')
   end
 
 	def send_message(target_room, text)
