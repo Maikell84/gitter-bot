@@ -30,7 +30,7 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     multipart-post (2.0.0)
-    oj (3.3.7)
+    oj (3.3.9)
     public_suffix (3.0.0)
 
 PLATFORMS
