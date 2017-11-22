@@ -25,8 +25,6 @@ class TimeService
                  ":clock#{current_time.strftime('%l').strip!}:"
                elsif current_time.min == 30
                  ":clock#{current_time.strftime('%l').strip!}30:"
-               elsif current_time.hour == 13 && current_time.min == 37
-                 'Look at the time! It\'s :one: :three: : :three: :seven: !'
                else
                  nil
                end
