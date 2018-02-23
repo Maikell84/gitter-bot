@@ -57,13 +57,13 @@ class GitterBot
 	  elsif @message['text'].downcase.start_with? 'gif'
 	  	show_gif(target_room, @message['text'])
     elsif @message['text'].downcase.start_with? 'deactivate time service'
-      toggle_time_service(target_room, false)
+      toggle_service(@time_service, target_room, false)
     elsif @message['text'].downcase.start_with? 'activate time service'
-	    toggle_time_service(target_room, true)
+	    toggle_service(@time_service, target_room, true)
     elsif @message['text'].downcase.start_with? 'deactivate leet service'
-      toggle_leet_service(target_room, false)
+      toggle_service(@leet_service, target_room, false)
     elsif @message['text'].downcase.start_with? 'activate leet service'
-      toggle_leet_service(target_room, true)
+      toggle_service(@leet_service, target_room, true)
     elsif @message['text'].downcase.include? 'but why'
        but_why(target_room)
 	  end
@@ -114,16 +114,9 @@ class GitterBot
 		end
 	end
 
-  def toggle_time_service(target_room, active)
-    @time_service.activate(target_room, active)
-    active_display = active == true ? 'on' : 'off'
-    send_message(target_room, "Time Service is #{active_display}")
-  end
-
-  def toggle_leet_service(target_room, active)
-    @leet_service.activate(target_room, active)
-    active_display = active == true ? 'on' : 'off'
-    send_message(target_room, "Leet Service is #{active_display}")
+  def toggle_service(service, room, active)
+    service.activate(room, active)
+    send_message(room, "#{service.class.name} is #{active ? 'on' : 'off'}")
   end
 end
 
