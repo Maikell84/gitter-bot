@@ -4,6 +4,7 @@ require 'json'
 require 'net/http'
 require 'open-uri'
 require 'giphy'
+require 'imgflip'
 require_relative 'time_service'
 require_relative 'leet_service'
 
@@ -67,7 +68,15 @@ class GitterBot
     elsif @message['text'].downcase.include? 'but why'
        but_why(target_room)
 	  end
+    spongebob(target_room, @message['text']) unless @message['text'].include? 'http://i.imgflip.com'
 	end
+
+  def spongebob(target_room, text)
+    text.slice!('spongebob')
+    text.gsub!(/\w/).with_index{|s, i| i.even? ? s.upcase : s.downcase}
+    post = Net::HTTP.post_form(URI.parse('https://api.imgflip.com/caption_image'),template_id: 102156234, text0: '', text1: '', 'boxes[0][text]': '', 'boxes[1][text]': text,username: "imgflip_hubot", password: "imgflip_hubot")
+    send_message(target_room, JSON.parse(post.body)["data"]["url"])
+  end
 
 	def tell_a_joke(target_room)
 		response = open('https://icanhazdadjoke.com/', 'Accept' => 'application/json').read
