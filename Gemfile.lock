@@ -27,6 +27,7 @@ GEM
       faraday_middleware-parse_oj (~> 0.3)
       launchy (~> 2.4)
     http_parser.rb (0.6.0)
+    imgflip (0.2.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     multipart-post (2.1.1)
@@ -40,6 +41,7 @@ DEPENDENCIES
   em-http-request
   eventmachine
   giphy
+  imgflip
 
 BUNDLED WITH
    1.16.1
