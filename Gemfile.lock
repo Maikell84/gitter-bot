@@ -1,8 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.5.2)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     cookiejar (0.3.3)
     em-http-request (1.1.5)
       addressable (>= 2.3.4)
@@ -13,9 +13,9 @@ GEM
     em-socksify (0.3.2)
       eventmachine (>= 1.0.0.beta.4)
     eventmachine (1.2.7)
-    faraday (0.15.3)
+    faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.12.2)
+    faraday_middleware (0.13.1)
       faraday (>= 0.7.4, < 1.0)
     faraday_middleware-parse_oj (0.3.2)
       faraday (~> 0.9)
@@ -29,9 +29,9 @@ GEM
     http_parser.rb (0.6.0)
     launchy (2.4.3)
       addressable (~> 2.3)
-    multipart-post (2.0.0)
-    oj (3.6.13)
-    public_suffix (3.0.3)
+    multipart-post (2.1.1)
+    oj (3.9.2)
+    public_suffix (4.0.1)
 
 PLATFORMS
   ruby
@@ -42,4 +42,4 @@ DEPENDENCIES
   giphy
 
 BUNDLED WITH
-   1.15.3
+   1.16.1
