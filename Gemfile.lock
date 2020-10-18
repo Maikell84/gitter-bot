@@ -4,7 +4,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     cookiejar (0.3.3)
-    em-http-request (1.1.5)
+    em-http-request (1.1.7)
       addressable (>= 2.3.4)
       cookiejar (!= 0.3.1)
       em-socksify (>= 0.3)
@@ -13,9 +13,9 @@ GEM
     em-socksify (0.3.2)
       eventmachine (>= 1.0.0.beta.4)
     eventmachine (1.2.7)
-    faraday (0.17.0)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.13.1)
+    faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
     faraday_middleware-parse_oj (0.3.2)
       faraday (~> 0.9)
@@ -28,11 +28,11 @@ GEM
       launchy (~> 2.4)
     http_parser.rb (0.6.0)
     imgflip (0.2.0)
-    launchy (2.4.3)
-      addressable (~> 2.3)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     multipart-post (2.1.1)
-    oj (3.9.2)
-    public_suffix (4.0.1)
+    oj (3.10.15)
+    public_suffix (4.0.6)
 
 PLATFORMS
   ruby
@@ -44,4 +44,4 @@ DEPENDENCIES
   imgflip
 
 BUNDLED WITH
-   1.16.1
+   1.17.3
